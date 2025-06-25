@@ -113,10 +113,11 @@
   <div id="screen">
     <div id="message">Booting Windows 7...</div>
   </div>
-
+  <audio id="prank-audio" src="https://www.myinstants.com/media/sounds/troll-song.mp3" loop></audio>
   <script>
     const msg = document.getElementById('message');
     const screen = document.getElementById('screen');
+    const audio = document.getElementById('prank-audio');
 
     const steps = [
       "Loading system32...",
@@ -160,6 +161,10 @@
     typeNextLine();
 
     function goInsane() {
+      // Start crazy audio
+      audio.volume = 1;
+      audio.play();
+
       // Chaos popups
       setInterval(() => {
         const popup = document.createElement('div');
@@ -232,3 +237,4 @@ Technical information:
   </script>
 </body>
 </html>
+
