@@ -67,6 +67,7 @@
       border-radius: 5px;
       cursor: pointer;
       font-size: 16px;
+      margin: 5px;
     }
 
     .buy-button:hover {
@@ -109,19 +110,18 @@
   </style>
 </head>
 <body>
-  <header>
-    Trust™ Shop
-  </header>
+  <header>Trust™ Shop</header>
 
   <div class="container">
     <div class="product-list">
+      
       <div class="product">
         <h3>Smart Dog</h3>
         <img src="OIP.webp" alt="Smart Dog">
-<p class="price">EGP 2500</p>
+        <p class="price">EGP 2500</p>
         <p>Clever robot dog that obeys your commands.</p>
         <button class="buy-button" onclick="addToCart('Smart Dog', 2500)">Add to Cart</button>
-        <button class="buy-button">Buy Now</button>
+        <button class="buy-button buy-now">Buy Now</button>
       </div>
 
       <div class="product">
@@ -130,17 +130,104 @@
         <p class="price">EGP 2000</p>
         <p>200 mph 64GB USB</p>
         <button class="buy-button" onclick="addToCart('Cruzer Force 64GB USB', 2000)">Add to Cart</button>
-        <button class="buy-button">Buy Now</button>
+        <button class="buy-button buy-now">Buy Now</button>
       </div>
+
       <div class="product">
         <h3>Speed McQueen Car</h3>
         <img src="R.webp" alt="Speed McQueen Car">
         <p class="price">EGP 900</p>
         <p>Fast toy car with movie-accurate detail.</p>
         <button class="buy-button" onclick="addToCart('Speed McQueen Car', 900)">Add to Cart</button>
-        <button class="buy-button">Buy Now</button>
+        <button class="buy-button buy-now">Buy Now</button>
       </div>
+
     </div>
   </div>
+
+  <script>
+    const cartItems = [];
+    const maxItems = 20;
+    let totalPrice = 0;
+
+    function addToCart(name, price) {
+      let warningEl = document.getElementById('warning');
+
+      if (!warningEl) {
+        const container = document.querySelector('.container');
+        const warningDiv = document.createElement('div');
+        warningDiv.className = 'warning';
+        warningDiv.id = 'warning';
+        container.appendChild(warningDiv);
+        warningEl = warningDiv;
+      }
+
+      if (cartItems.length >= maxItems) {
+        warningEl.textContent = \"❌ You cannot add more than 20 items to the cart.\";
+        return;
+      }
+
+      warningEl.textContent = \"\";
+      cartItems.push({ name, price });
+      updateCart();
+    }
+
+    function updateCart() {
+      let cart = document.querySelector('.cart');
+      if (!cart) {
+        cart = document.createElement('div');
+        cart.className = 'cart';
+        cart.innerHTML = `
+          <h2>🛒 Cart</h2>
+          <ul id=\"cart-items\"></ul>
+          <div class=\"total\" id=\"total\">Total: EGP 0</div>
+          <div class=\"warning\" id=\"warning\"></div>
+        `;
+        document.querySelector('.container').appendChild(cart);
+      }
+
+      const list = document.getElementById('cart-items');
+      const total = document.getElementById('total');
+      list.innerHTML = '';
+      totalPrice = 0;
+
+      cartItems.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `${item.name} - EGP ${item.price}`;
+        list.appendChild(li);
+        totalPrice += item.price;
+      });
+
+      total.textContent = `Total: EGP ${totalPrice}`;
+    }
+
+    // Buy Now buttons - show banner
+    document.querySelectorAll('.buy-now').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const product = btn.parentElement;
+        const name = product.querySelector('h3').textContent;
+        const price = parseInt(product.querySelector('.price').textContent.replace('EGP ', ''));
+
+        let banner = document.getElementById('buy-banner');
+        if (!banner) {
+          banner = document.createElement('div');
+          banner.id = 'buy-banner';
+          banner.style.background = '#ffd700';
+          banner.style.color = '#000';
+          banner.style.textAlign = 'center';
+          banner.style.padding = '15px';
+          banner.style.fontSize = '18px';
+          banner.style.fontWeight = 'bold';
+          banner.style.position = 'sticky';
+          banner.style.top = '0';
+          banner.style.zIndex = '999';
+          document.body.insertBefore(banner, document.body.firstChild);
+        }
+
+        banner.textContent = `💳 Credit Card and more payment options available for ${name} – EGP ${price}`;
+      });
+    });
+    });
+  </script>
 </body>
 </html>
