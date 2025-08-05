@@ -94,6 +94,18 @@
     .cart li {
       padding: 5px 0;
       border-bottom: 1px solid #ddd;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cart .delete-btn {
+      background: red;
+      color: white;
+      border: none;
+      padding: 4px 10px;
+      border-radius: 5px;
+      cursor: pointer;
     }
 
     .total {
@@ -107,7 +119,8 @@
       font-size: 14px;
       margin-top: 10px;
     }
-      .floating-cart-btn {
+
+    .floating-cart-btn {
       position: fixed;
       bottom: 20px;
       right: 20px;
@@ -121,7 +134,17 @@
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
       z-index: 1000;
     }
-</style>
+  </style>
+  <script>
+    function scrollToCart() {
+      const cart = document.querySelector('.cart');
+      if (cart) {
+        cart.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        alert("🛒 Cart is empty.");
+      }
+    }
+  </script>
 </head>
 <body>
   <header>Trust™ Shop</header>
@@ -134,7 +157,6 @@
 
   <div class="container">
     <div class="product-list">
-      
       <div class="product">
         <h3>Smart Dog</h3>
         <img src="OIP.webp" alt="Smart Dog">
@@ -161,7 +183,6 @@
         <button class="buy-button" onclick="addToCart('Speed McQueen Car', 900)">Add to Cart</button>
         <button class="buy-button buy-now">Buy Now</button>
       </div>
-
     </div>
   </div>
 
@@ -172,7 +193,6 @@
 
     function addToCart(name, price) {
       let warningEl = document.getElementById('warning');
-
       if (!warningEl) {
         const container = document.querySelector('.container');
         const warningDiv = document.createElement('div');
@@ -183,12 +203,17 @@
       }
 
       if (cartItems.length >= maxItems) {
-        warningEl.textContent = \"❌ You cannot add more than 20 items to the cart.\";
+        warningEl.textContent = "❌ You cannot add more than 20 items to the cart.";
         return;
       }
 
-      warningEl.textContent = \"\";
+      warningEl.textContent = "";
       cartItems.push({ name, price });
+      updateCart();
+    }
+
+    function removeFromCart(index) {
+      cartItems.splice(index, 1);
       updateCart();
     }
 
@@ -199,9 +224,10 @@
         cart.className = 'cart';
         cart.innerHTML = `
           <h2>🛒 Cart</h2>
-          <ul id=\"cart-items\"></ul>
-          <div class=\"total\" id=\"total\">Total: EGP 0</div>
-          <div class=\"warning\" id=\"warning\"></div>
+          <ul id="cart-items"></ul>
+          <div class="total" id="total">Total: EGP 0</div>
+          <button class="buy-button" onclick="buyEverything()">Buy Everything</button>
+          <div class="warning" id="warning"></div>
         `;
         document.querySelector('.container').appendChild(cart);
       }
@@ -211,9 +237,9 @@
       list.innerHTML = '';
       totalPrice = 0;
 
-      cartItems.forEach(item => {
+      cartItems.forEach((item, index) => {
         const li = document.createElement('li');
-        li.textContent = `${item.name} - EGP ${item.price}`;
+        li.innerHTML = `${item.name} - EGP ${item.price} <button class="delete-btn" onclick="removeFromCart(${index})">Delete</button>`;
         list.appendChild(li);
         totalPrice += item.price;
       });
@@ -221,7 +247,16 @@
       total.textContent = `Total: EGP ${totalPrice}`;
     }
 
-    // Buy Now buttons - show banner
+    function buyEverything() {
+      if (cartItems.length === 0) {
+        alert("🛒 Your cart is empty!");
+        return;
+      }
+      alert(`💳 Payment of EGP ${totalPrice} successful! Thank you for your purchase.`);
+      cartItems.length = 0;
+      updateCart();
+    }
+
     document.querySelectorAll('.buy-now').forEach(btn => {
       btn.addEventListener('click', () => {
         const product = btn.parentElement;
@@ -244,7 +279,7 @@
           document.body.insertBefore(banner, document.body.firstChild);
         }
 
-        banner.innerHTML = `💳 Credit Card and more payment options available for ${name} – EGP ${price} <span id='close-banner' style='margin-left:20px; cursor:pointer;'>❌</span>`;
+        banner.innerHTML = `💳 Write your credit information to continue purchasing ${name} – EGP ${price} <span id='close-banner' style='margin-left:20px; cursor:pointer;'>❌</span>`;
 
         document.getElementById('close-banner').onclick = () => banner.remove();
 
@@ -253,23 +288,10 @@
             banner.remove();
           }
         }, 5000);
-            });
+      });
     });
-    });
-  function scrollToCart() {
-  const cart = document.querySelector('.cart');
-  if (cart) {
-    cart.scrollIntoView({ behavior: 'smooth' });
-  } else {
-    alert("🛒 Cart is empty.");
-  }
-});
-  } else {
-    alert("🛒 Cart is empty.");
-  }
-}
+  </script>
 
-</script>
   <button class="floating-cart-btn" onclick="scrollToCart()">🛒 View Cart</button>
 </body>
 </html>
