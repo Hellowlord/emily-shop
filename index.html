@@ -134,6 +134,36 @@
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
       z-index: 1000;
     }
+
+    #payment-form {
+      background: #fff8e1;
+      border: 1px solid #ffc107;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 500px;
+      border-radius: 10px;
+    }
+
+    #payment-form input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    #payment-form label {
+      font-weight: bold;
+    }
+
+    #payment-form button {
+      background-color: #28a745;
+      color: white;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
   </style>
   <script>
     function scrollToCart() {
@@ -183,6 +213,27 @@
         <button class="buy-button" onclick="addToCart('Speed McQueen Car', 900)">Add to Cart</button>
         <button class="buy-button buy-now">Buy Now</button>
       </div>
+    </div>
+
+    <div id="payment-form" style="display: block;">
+      <h3>💳 Payment Info for <span id="item-name"></span> - <span id="item-price"></span></h3>
+
+      <label>Credit Card Number:</label>
+      <input type="text" placeholder="1234 5678 9012 3456">
+
+      <label>Name on Card:</label>
+      <input type="text" placeholder="John Doe">
+
+      <label>Expiration Date (MM/YY):</label>
+      <input type="text" placeholder="08/27">
+
+      <label>CVV:</label>
+      <input type="text" placeholder="123">
+
+      <label>PIN:</label>
+      <input type="password" placeholder="****">
+
+      <button onclick="alert('✅ Fake payment successful!')">Submit Payment</button>
     </div>
   </div>
 
@@ -252,9 +303,9 @@
         alert("🛒 Your cart is empty!");
         return;
       }
-      alert(`💳 Payment of EGP ${totalPrice} successful! Thank you for your purchase.`);
-      cartItems.length = 0;
-      updateCart();
+      document.getElementById('item-name').textContent = "all items";
+      document.getElementById('item-price').textContent = `EGP ${totalPrice}`;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     document.querySelectorAll('.buy-now').forEach(btn => {
@@ -263,31 +314,9 @@
         const name = product.querySelector('h3').textContent;
         const price = parseInt(product.querySelector('.price').textContent.replace('EGP ', ''));
 
-        let banner = document.getElementById('buy-banner');
-        if (!banner) {
-          banner = document.createElement('div');
-          banner.id = 'buy-banner';
-          banner.style.background = '#ffd700';
-          banner.style.color = '#000';
-          banner.style.textAlign = 'center';
-          banner.style.padding = '15px';
-          banner.style.fontSize = '18px';
-          banner.style.fontWeight = 'bold';
-          banner.style.position = 'sticky';
-          banner.style.top = '0';
-          banner.style.zIndex = '999';
-          document.body.insertBefore(banner, document.body.firstChild);
-        }
-
-        banner.innerHTML = `💳 Write your credit information to continue purchasing ${name} – EGP ${price} <span id='close-banner' style='margin-left:20px; cursor:pointer;'>❌</span>`;
-
-        document.getElementById('close-banner').onclick = () => banner.remove();
-
-        setTimeout(() => {
-          if (document.getElementById('buy-banner')) {
-            banner.remove();
-          }
-        }, 5000);
+        document.getElementById('item-name').textContent = name;
+        document.getElementById('item-price').textContent = `EGP ${price}`;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     });
   </script>
