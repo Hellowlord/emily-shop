@@ -2,238 +2,145 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Windows 7 - System</title>
+  <title>Trust™ Shop</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background-color: black;
-      font-family: 'Lucida Console', monospace;
-      overflow: hidden;
-      cursor: none;
+      font-family: Arial, sans-serif;
+      background: #f8f8f8;
+      margin: 0;
+      padding: 0;
     }
-    #screen {
-      width: 100vw;
-      height: 100vh;
-      background: url('https://upload.wikimedia.org/wikipedia/en/e/e7/Windows_7_Default_Wallpaper.png') no-repeat center center;
-      background-size: cover;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      position: relative;
-    }
-    #message {
-      background: rgba(0, 0, 0, 0.8);
-      color: #0f0;
-      padding: 20px;
-      font-size: 16px;
-      border-radius: 10px;
-      white-space: pre-wrap;
-      max-width: 90%;
-      text-align: left;
-      z-index: 2;
-    }
-    .popup {
-      position: absolute;
-      background: #ff0000;
+
+    header {
+      background-color: #222;
       color: white;
-      padding: 10px;
-      font-weight: bold;
-      border: 2px solid white;
-      box-shadow: 0 0 20px red;
-      z-index: 9999;
-      animation: shake 0.3s infinite;
-    }
-    .idiot {
-      position: absolute;
-      background: yellow;
-      color: red;
-      font-weight: bold;
-      padding: 10px;
-      width: 160px;
-      height: 100px;
+      padding: 20px;
       text-align: center;
-      border: 2px solid red;
-      border-radius: 8px;
-      animation: moveIdiot 6s linear infinite;
+      font-size: 32px;
+      font-weight: bold;
     }
-    @keyframes moveIdiot {
-      0%   { transform: translate(0, 0); }
-      25%  { transform: translate(100px, 100px); }
-      50%  { transform: translate(-100px, 150px); }
-      75%  { transform: translate(150px, -100px); }
-      100% { transform: translate(0, 0); }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 30px;
     }
-    @keyframes shake {
-      0% { transform: translate(0, 0); }
-      25% { transform: translate(4px, -4px); }
-      50% { transform: translate(-4px, 4px); }
-      75% { transform: translate(4px, 4px); }
-      100% { transform: translate(0, 0); }
-    }
-    .bsod {
-      background-color: #0000AA;
-      color: white;
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      font-size: 20px;
-      padding: 50px;
-      z-index: 99999;
-    }
-    .cmd {
-      background-color: black;
-      color: lime;
-      font-size: 16px;
-      font-family: 'Courier New', Courier, monospace;
-      padding: 20px;
-      width: 90vw;
-      height: 70vh;
-      overflow: auto;
-      border: 3px solid lime;
-      margin-top: 20px;
-    }
-    .restart {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: black;
-      color: white;
-      font-size: 24px;
+
+    .product-list {
       display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
       justify-content: center;
-      align-items: center;
-      z-index: 999999;
+    }
+
+    .product {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 280px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .product h3 {
+      margin-top: 0;
+    }
+
+    .product img {
+      width: 100%;
+      height: auto;
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
+
+    .price {
+      font-size: 20px;
+      color: green;
+      margin: 10px 0;
+    }
+
+    .buy-button {
+      background: #007BFF;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .buy-button:hover {
+      background: #0056b3;
+    }
+
+    .cart {
+      margin-top: 40px;
+      padding: 20px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+
+    .cart h2 {
+      margin-top: 0;
+    }
+
+    .cart ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .cart li {
+      padding: 5px 0;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .total {
+      font-weight: bold;
+      margin-top: 15px;
+      font-size: 18px;
+    }
+
+    .warning {
+      color: red;
+      font-size: 14px;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
-  <div id="screen">
-    <div id="message">Booting Windows 7...</div>
+  <header>
+    Trust™ Shop
+  </header>
+
+  <div class="container">
+    <div class="product-list">
+      <div class="product">
+        <h3>Smart Dog</h3>
+        <img src="OIP.webp" alt="Smart Dog">
+<p class="price">EGP 2500</p>
+        <p>Clever robot dog that obeys your commands.</p>
+        <button class="buy-button" onclick="addToCart('Smart Dog', 2500)">Add to Cart</button>
+        <button class="buy-button">Buy Now</button>
+      </div>
+
+      <div class="product">
+        <h3>Cruzer Force 64GB USB</h3>
+        <img src="usb.webp" alt="Cruzer Force USB">
+        <p class="price">EGP 2000</p>
+        <p>200 mph 64GB USB</p>
+        <button class="buy-button" onclick="addToCart('Cruzer Force 64GB USB', 2000)">Add to Cart</button>
+        <button class="buy-button">Buy Now</button>
+      </div>
+      <div class="product">
+        <h3>Speed McQueen Car</h3>
+        <img src="R.webp" alt="Speed McQueen Car">
+        <p class="price">EGP 900</p>
+        <p>Fast toy car with movie-accurate detail.</p>
+        <button class="buy-button" onclick="addToCart('Speed McQueen Car', 900)">Add to Cart</button>
+        <button class="buy-button">Buy Now</button>
+      </div>
+    </div>
   </div>
-  <audio id="prank-audio" src="https://www.myinstants.com/media/sounds/troll-song.mp3" loop></audio>
-  <script>
-    const msg = document.getElementById('message');
-    const screen = document.getElementById('screen');
-    const audio = document.getElementById('prank-audio');
-
-    const steps = [
-      "Loading system32...",
-      "Starting explorer.exe...",
-      "Applying Aero theme...",
-      "Checking for updates...",
-      "Loading user profile...",
-      "Welcome. System ready.",
-      "\n\n[SECURITY WARNING] Suspicious file detected: Malware.exe",
-      "Launching Malware.exe...",
-      "Deleting antivirus...",
-      "Disabling Task Manager...",
-      "Encrypting C:/ drive...",
-      "Accessing webcam...",
-      "\n\n[SYSTEM BREACH] Intrusion confirmed.",
-      "Injecting payload into memory...",
-      "Attempting BIOS overwrite...",
-      "\n\n[!!!] CRITICAL SYSTEM CORRUPTION"
-    ];
-
-    let i = 0;
-    function typeNextLine() {
-      if (i >= steps.length) return goInsane();
-      let line = steps[i];
-      let j = 0;
-      let typedLine = '';
-      function typeChar() {
-        if (j < line.length) {
-          typedLine += line[j++];
-          msg.innerText += line[j - 1];
-          setTimeout(typeChar, 20);
-        } else {
-          msg.innerText += "\n";
-          i++;
-          setTimeout(typeNextLine, 100);
-        }
-      }
-      typeChar();
-    }
-
-    typeNextLine();
-
-    function goInsane() {
-      // Start crazy audio
-      audio.volume = 1;
-      audio.play();
-
-      // Chaos popups
-      setInterval(() => {
-        const popup = document.createElement('div');
-        popup.className = 'popup';
-        popup.innerText = '!! SYSTEM ALERT !!';
-        popup.style.top = Math.random() * window.innerHeight + 'px';
-        popup.style.left = Math.random() * window.innerWidth + 'px';
-        document.body.appendChild(popup);
-        setTimeout(() => popup.remove(), 1500);
-      }, 100);
-
-      // Floating "You are an idiot" boxes
-      for (let k = 0; k < 7; k++) {
-        const idiot = document.createElement('div');
-        idiot.className = 'idiot';
-        idiot.innerText = 'YOU ARE AN IDIOT!';
-        idiot.style.top = Math.random() * window.innerHeight + 'px';
-        idiot.style.left = Math.random() * window.innerWidth + 'px';
-        idiot.style.animationDelay = `${Math.random() * 6}s`;
-        document.body.appendChild(idiot);
-      }
-
-      // Flash background
-      setInterval(() => {
-        screen.style.backgroundColor = '#' + Math.floor(Math.random()*16777215).toString(16);
-      }, 80);
-
-      // Fake CMD
-      setTimeout(() => {
-        const cmd = document.createElement('div');
-        cmd.className = 'cmd';
-        cmd.innerText = `C:\\Windows\\System32> malware_payload.exe\nExecuting payload...\nRoot access granted.\nUploading files to hacker@darknet...\nDeleting logs...\nPlanting ransomware...\n\nProcess completed.`;
-        screen.appendChild(cmd);
-      }, 3000);
-
-      // BSOD
-      setTimeout(() => {
-        const bsod = document.createElement('div');
-        bsod.className = 'bsod';
-        bsod.innerText = `A problem has been detected and Windows has been shut down to prevent damage.
-
-MALWARE_INJECTION_ERROR
-
-If this is the first time you've seen this Stop error screen,
-restart your computer. If this screen appears again, follow
-these steps:
-
-Check to make sure any new hardware or software is properly installed.
-If this is a new installation, ask your hardware or software manufacturer
-for any Windows updates you might need.
-
-Technical information:
-*** STOP: 0x0000008E (0xC0000005, 0x00000000, 0x00000000, 0x00000000)`;
-        document.body.appendChild(bsod);
-      }, 7000);
-
-      // Restart overlay
-      setTimeout(() => {
-        const restart = document.createElement('div');
-        restart.className = 'restart';
-        restart.innerText = 'Restarting Windows...';
-        document.body.appendChild(restart);
-      }, 9500);
-
-      // Reload
-      setTimeout(() => {
-        location.reload();
-      }, 10000);
-    }
-  </script>
 </body>
 </html>
