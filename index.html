@@ -107,10 +107,30 @@
       font-size: 14px;
       margin-top: 10px;
     }
-  </style>
+      .floating-cart-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 12px 18px;
+      font-size: 16px;
+      background: #ff5722;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
+</style>
 </head>
 <body>
   <header>Trust™ Shop</header>
+
+  <div style="text-align: center; margin-top: 10px;">
+    <button onclick="scrollToCart()" style="padding: 10px 20px; font-size: 16px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">
+      🛒 View Cart
+    </button>
+  </div>
 
   <div class="container">
     <div class="product-list">
@@ -224,10 +244,32 @@
           document.body.insertBefore(banner, document.body.firstChild);
         }
 
-        banner.textContent = `💳 Credit Card and more payment options available for ${name} – EGP ${price}`;
-      });
+        banner.innerHTML = `💳 Credit Card and more payment options available for ${name} – EGP ${price} <span id='close-banner' style='margin-left:20px; cursor:pointer;'>❌</span>`;
+
+        document.getElementById('close-banner').onclick = () => banner.remove();
+
+        setTimeout(() => {
+          if (document.getElementById('buy-banner')) {
+            banner.remove();
+          }
+        }, 5000);
+            });
     });
     });
-  </script>
+  function scrollToCart() {
+  const cart = document.querySelector('.cart');
+  if (cart) {
+    cart.scrollIntoView({ behavior: 'smooth' });
+  } else {
+    alert("🛒 Cart is empty.");
+  }
+});
+  } else {
+    alert("🛒 Cart is empty.");
+  }
+}
+
+</script>
+  <button class="floating-cart-btn" onclick="scrollToCart()">🛒 View Cart</button>
 </body>
 </html>
