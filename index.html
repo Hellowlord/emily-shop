@@ -5,19 +5,21 @@
   <title>Emily Shop</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f8f8f8;
+      font-family: 'Segoe UI', sans-serif;
+      background: #fefefe;
       margin: 0;
       padding: 0;
+      color: #444;
     }
 
     header {
-      background-color: #222;
-      color: white;
+      background-color: #ffe6f0;
+      color: #d63384;
       padding: 20px;
       text-align: center;
       font-size: 32px;
       font-weight: bold;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
 
     .container {
@@ -34,12 +36,17 @@
     }
 
     .product {
-      background: white;
+      background: #fff0f5;
       padding: 20px;
-      border-radius: 10px;
+      border-radius: 20px;
       width: 280px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
       text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .product:hover {
+      transform: scale(1.02);
     }
 
     .product h3 {
@@ -50,36 +57,37 @@
       width: 100%;
       height: auto;
       margin-bottom: 10px;
-      border-radius: 5px;
+      border-radius: 10px;
     }
 
     .price {
       font-size: 20px;
-      color: green;
+      color: #28a745;
       margin: 10px 0;
     }
 
     .buy-button {
-      background: #007BFF;
+      background: #ff66b2;
       color: white;
       border: none;
       padding: 10px 15px;
-      border-radius: 5px;
+      border-radius: 10px;
       cursor: pointer;
       font-size: 16px;
       margin: 5px;
+      transition: background 0.3s ease;
     }
 
     .buy-button:hover {
-      background: #0056b3;
+      background: #cc3399;
     }
 
     .cart {
       margin-top: 40px;
       padding: 20px;
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      background: #fff0f5;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
 
     .cart h2 {
@@ -92,19 +100,19 @@
     }
 
     .cart li {
-      padding: 5px 0;
-      border-bottom: 1px solid #ddd;
+      padding: 8px 0;
+      border-bottom: 1px solid #f3c6d3;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
     .cart .delete-btn {
-      background: red;
+      background: #ff4d4d;
       color: white;
       border: none;
       padding: 4px 10px;
-      border-radius: 5px;
+      border-radius: 8px;
       cursor: pointer;
     }
 
@@ -117,51 +125,52 @@
     .address-section {
       margin-top: 40px;
       padding: 20px;
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      background: #fff0f5;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
       display: none;
     }
 
     .address-section input {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       margin-bottom: 10px;
       border: 1px solid #ccc;
-      border-radius: 5px;
+      border-radius: 8px;
       font-size: 16px;
+    }
+
+    .confirmation {
+      color: green;
+      font-weight: bold;
+      margin-top: 15px;
     }
   </style>
   <script>
     const cartItems = [];
 
-    function addToCart(productName, price) {
-      cartItems.push({ name: productName, price: price });
-      updateCartDisplay();
-    }
-
-    function updateCartDisplay() {
-      const cartList = document.getElementById('cart-list');
-      const totalElement = document.getElementById('cart-total');
-      cartList.innerHTML = '';
-      let total = 0;
-
-      cartItems.forEach((item, index) => {
-        const li = document.createElement('li');
-        li.innerHTML = `
-          ${item.name} - EGP ${item.price}
-          <button class="delete-btn" onclick="removeFromCart(${index})">X</button>
-        `;
-        cartList.appendChild(li);
-        total += item.price;
-      });
-
-      totalElement.textContent = "Total: EGP " + total;
+    function addToCart(product, price) {
+      cartItems.push({ product, price });
+      updateCart();
     }
 
     function removeFromCart(index) {
       cartItems.splice(index, 1);
-      updateCartDisplay();
+      updateCart();
+    }
+
+    function updateCart() {
+      const cartList = document.getElementById('cart-items');
+      cartList.innerHTML = '';
+      let total = 0;
+      cartItems.forEach((item, index) => {
+        total += item.price;
+        const li = document.createElement('li');
+        li.innerHTML = `${item.product} - EGP ${item.price} <button class="delete-btn" onclick="removeFromCart(${index})">X</button>`;
+        cartList.appendChild(li);
+      });
+      document.getElementById('total').innerText = `Total: EGP ${total}`;
+      document.getElementById('buy-button-cart').style.display = cartItems.length ? 'inline-block' : 'none';
     }
 
     function showAddressForm() {
@@ -171,28 +180,37 @@
     }
 
     function confirmPurchase() {
-      alert("Your purchase has been confirmed!");
-      document.querySelector('.address-section').style.display = 'none';
+      const name = document.getElementById('fullName').value;
+      const street = document.getElementById('streetAddress').value;
+      const city = document.getElementById('city').value;
+      const postal = document.getElementById('postalCode').value;
+      const phone = document.getElementById('phone').value;
+
+      if (!name || !street || !city || !postal || !phone) {
+        alert('Please fill in all address fields.');
+        return;
+      }
+
+      const receipt = `Receipt\n-------\nCustomer: ${name}\nAddress: ${street}, ${city}, ${postal}\nPhone: ${phone}\n\nItems:\n` +
+        cartItems.map(i => `- ${i.product}: EGP ${i.price}`).join('\n') +
+        `\n\nTotal: EGP ${cartItems.reduce((sum, i) => sum + i.price, 0)}\nPayment: Cash`;
+
+      const blob = new Blob([receipt], { type: 'text/plain' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'receipt.txt';
+      link.click();
+
+      document.getElementById('confirmation').innerText = '✅ Your purchase has been confirmed!';
     }
 
-    window.onload = function () {
-      document.querySelectorAll('.buy-now').forEach(button => {
-        button.addEventListener('click', showAddressForm);
-      });
-
-      document.getElementById('confirm-buy').addEventListener('click', confirmPurchase);
-    };
+    window.onload = function() {
+      updateCart();
+    }
   </script>
 </head>
 <body>
   <header>Emily Shop</header>
-
-  <div style="text-align: center; margin-top: 10px;">
-    <button onclick="document.querySelector('.cart').scrollIntoView({ behavior: 'smooth' })"
-            style="padding: 10px 20px; font-size: 16px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">
-      🛒 View Cart
-    </button>
-  </div>
 
   <div class="container">
     <div class="product-list">
@@ -202,7 +220,6 @@
         <p class="price">EGP 2500</p>
         <p>Clever robot dog that obeys your commands.</p>
         <button class="buy-button" onclick="addToCart('Smart Dog', 2500)">Add to Cart</button>
-        <button class="buy-button buy-now">Buy Now</button>
       </div>
 
       <div class="product">
@@ -211,7 +228,6 @@
         <p class="price">EGP 2000</p>
         <p>200 mph 64GB USB</p>
         <button class="buy-button" onclick="addToCart('Cruzer Force 64GB USB', 2000)">Add to Cart</button>
-        <button class="buy-button buy-now">Buy Now</button>
       </div>
 
       <div class="product">
@@ -220,26 +236,28 @@
         <p class="price">EGP 900</p>
         <p>Fast toy car with movie-accurate detail.</p>
         <button class="buy-button" onclick="addToCart('Speed McQueen Car', 900)">Add to Cart</button>
-        <button class="buy-button buy-now">Buy Now</button>
       </div>
     </div>
 
     <div class="cart">
-      <h2>Your Cart</h2>
-      <ul id="cart-list"></ul>
-      <div class="total" id="cart-total">Total: EGP 0</div>
+      <h2>🛒 Cart</h2>
+      <ul id="cart-items"></ul>
+      <div class="total" id="total">Total: EGP 0</div>
+      <button id="buy-button-cart" class="buy-button" style="display:none;" onclick="showAddressForm()">Buy Now</button>
     </div>
 
     <div class="address-section">
       <h2>Shipping Address</h2>
-      <input type="text" placeholder="Full Name">
-      <input type="text" placeholder="Street Address">
-      <input type="text" placeholder="City">
-      <input type="text" placeholder="Postal Code">
-      <input type="text" placeholder="Phone Number">
+      <input type="text" id="fullName" placeholder="Full Name">
+      <input type="text" id="streetAddress" placeholder="Street Address">
+      <input type="text" id="city" placeholder="City">
+      <input type="text" id="postalCode" placeholder="Postal Code">
+      <input type="text" id="phone" placeholder="Phone Number">
       <p><strong>Note:</strong> Only cash payment is accepted.</p>
-      <button class="buy-button" id="confirm-buy">Buy Now</button>
+      <button class="buy-button" onclick="confirmPurchase()">Buy Now</button>
+      <div id="confirmation" class="confirmation"></div>
     </div>
   </div>
 </body>
 </html>
+
