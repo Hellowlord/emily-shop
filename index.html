@@ -134,218 +134,35 @@
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
       z-index: 1000;
     }
-  </style>
-  <script>
-    function scrollToCart() {
-      const cart = document.querySelector('.cart');
-      if (cart) {
-        cart.scrollIntoView({ behavior: 'smooth' });
-      } else {
-        alert("🛒 Cart is empty.");
-      }
-    }
-  </script>
-</head>
-<body>
-  <header>Trust™ Shop</header>
 
-  <div style="text-align: center; margin-top: 10px;">
-    <button onclick="scrollToCart()" style="padding: 10px 20px; font-size: 16px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">
-      🛒 View Cart
-    </button>
-  </div>
-
-  <div class="container">
-    <div class="product-list">
-      <div class="product">
-        <h3>Smart Dog</h3>
-        <img src="OIP.webp" alt="Smart Dog">
-        <p class="price">EGP 2500</p>
-        <p>Clever robot dog that obeys your commands.</p>
-        <button class="buy-button" onclick="addToCart('Smart Dog', 2500)">Add to Cart</button>
-        <button class="buy-button buy-now">Buy Now</button>
-      </div>
-
-      <div class="product">
-        <h3>Cruzer Force 64GB USB</h3>
-        <img src="usb.webp" alt="Cruzer Force USB">
-        <p class="price">EGP 2000</p>
-        <p>200 mph 64GB USB</p>
-        <button class="buy-button" onclick="addToCart('Cruzer Force 64GB USB', 2000)">Add to Cart</button>
-        <button class="buy-button buy-now">Buy Now</button>
-      </div>
-
-      <div class="product">
-        <h3>Speed McQueen Car</h3>
-        <img src="R.webp" alt="Speed McQueen Car">
-        <p class="price">EGP 900</p>
-        <p>Fast toy car with movie-accurate detail.</p>
-        <button class="buy-button" onclick="addToCart('Speed McQueen Car', 900)">Add to Cart</button>
-        <button class="buy-button buy-now">Buy Now</button>
-      </div>
-
-      <div class="product">
-        <h3>Blue Beanbag Chair</h3>
-        <img src="blue-beanbag.jpg" alt="Blue Beanbag Chair">
-        <p class="price">EGP 1200</p>
-        <p>Comfortable blue beanbag for relaxing at home.</p>
-        <button class="buy-button" onclick="addToCart('Blue Beanbag Chair', 1200)">Add to Cart</button>
-        <button class="buy-button buy-now">Buy Now</button>
-      </div>
-
-      <div class="product">
-        <h3>Red Beanbag Chair</h3>
-        <img src="red-beanbag.jpg" alt="Red Beanbag Chair">
-        <p class="price">EGP 1200</p>
-        <p>Stylish red beanbag chair to chill in style.</p>
-        <button class="buy-button" onclick="addToCart('Red Beanbag Chair', 1200)">Add to Cart</button>
-        <button class="buy-button buy-now">Buy Now</button>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    const cartItems = [];
-    const maxItems = 20;
-    let totalPrice = 0;
-
-    function addToCart(name, price) {
-      let warningEl = document.getElemen
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Trust™ Shop</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f8f8f8;
-      margin: 0;
-      padding: 0;
-    }
-
-    header {
-      background-color: #222;
-      color: white;
+    #payment-form {
+      background: #fff8e1;
+      border: 1px solid #ffc107;
       padding: 20px;
-      text-align: center;
-      font-size: 32px;
-      font-weight: bold;
-    }
-
-    .container {
-      max-width: 1000px;
-      margin: auto;
-      padding: 30px;
-    }
-
-    .product-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-    }
-
-    .product {
-      background: white;
-      padding: 20px;
+      margin: 20px auto;
+      max-width: 500px;
       border-radius: 10px;
-      width: 280px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      text-align: center;
     }
 
-    .product h3 {
-      margin-top: 0;
-    }
-
-    .product img {
+    #payment-form input {
       width: 100%;
-      height: auto;
-      margin-bottom: 10px;
+      padding: 10px;
+      margin: 8px 0 16px;
+      border: 1px solid #ccc;
       border-radius: 5px;
     }
 
-    .price {
-      font-size: 20px;
-      color: green;
-      margin: 10px 0;
-    }
-
-    .buy-button {
-      background: #007BFF;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
-      margin: 5px;
-    }
-
-    .buy-button:hover {
-      background: #0056b3;
-    }
-
-    .cart {
-      margin-top: 40px;
-      padding: 20px;
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.1);
-    }
-
-    .cart h2 {
-      margin-top: 0;
-    }
-
-    .cart ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .cart li {
-      padding: 5px 0;
-      border-bottom: 1px solid #ddd;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .cart .delete-btn {
-      background: red;
-      color: white;
-      border: none;
-      padding: 4px 10px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .total {
+    #payment-form label {
       font-weight: bold;
-      margin-top: 15px;
-      font-size: 18px;
     }
 
-    .warning {
-      color: red;
-      font-size: 14px;
-      margin-top: 10px;
-    }
-
-    .floating-cart-btn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      padding: 12px 18px;
-      font-size: 16px;
-      background: #ff5722;
+    #payment-form button {
+      background-color: #28a745;
       color: white;
+      padding: 10px 16px;
       border: none;
-      border-radius: 50px;
+      border-radius: 5px;
       cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      z-index: 1000;
     }
   </style>
   <script>
@@ -396,24 +213,27 @@
         <button class="buy-button" onclick="addToCart('Speed McQueen Car', 900)">Add to Cart</button>
         <button class="buy-button buy-now">Buy Now</button>
       </div>
+    </div>
 
-      <div class="product">
-        <h3>Blue Beanbag Chair</h3>
-        <img src="blue-beanbag.jpg" alt="Blue Beanbag Chair">
-        <p class="price">EGP 1200</p>
-        <p>Comfortable blue beanbag for relaxing at home.</p>
-        <button class="buy-button" onclick="addToCart('Blue Beanbag Chair', 1200)">Add to Cart</button>
-        <button class="buy-button buy-now">Buy Now</button>
-      </div>
+    <div id="payment-form" style="display: block;">
+      <h3>💳 Payment Info for <span id="item-name"></span> - <span id="item-price"></span></h3>
 
-      <div class="product">
-        <h3>Red Beanbag Chair</h3>
-        <img src="red-beanbag.jpg" alt="Red Beanbag Chair">
-        <p class="price">EGP 1200</p>
-        <p>Stylish red beanbag chair to chill in style.</p>
-        <button class="buy-button" onclick="addToCart('Red Beanbag Chair', 1200)">Add to Cart</button>
-        <button class="buy-button buy-now">Buy Now</button>
-      </div>
+      <label>Credit Card Number:</label>
+      <input type="text" placeholder="1234 5678 9012 3456">
+
+      <label>Name on Card:</label>
+      <input type="text" placeholder="John Doe">
+
+      <label>Expiration Date (MM/YY):</label>
+      <input type="text" placeholder="08/27">
+
+      <label>CVV:</label>
+      <input type="text" placeholder="123">
+
+      <label>PIN:</label>
+      <input type="password" placeholder="****">
+
+      <button onclick="alert('✅ Fake payment successful!')">Submit Payment</button>
     </div>
   </div>
 
@@ -423,6 +243,84 @@
     let totalPrice = 0;
 
     function addToCart(name, price) {
-      let warningEl = document.getElemen
+      let warningEl = document.getElementById('warning');
+      if (!warningEl) {
+        const container = document.querySelector('.container');
+        const warningDiv = document.createElement('div');
+        warningDiv.className = 'warning';
+        warningDiv.id = 'warning';
+        container.appendChild(warningDiv);
+        warningEl = warningDiv;
+      }
 
+      if (cartItems.length >= maxItems) {
+        warningEl.textContent = "❌ You cannot add more than 20 items to the cart.";
+        return;
+      }
 
+      warningEl.textContent = "";
+      cartItems.push({ name, price });
+      updateCart();
+    }
+
+    function removeFromCart(index) {
+      cartItems.splice(index, 1);
+      updateCart();
+    }
+
+    function updateCart() {
+      let cart = document.querySelector('.cart');
+      if (!cart) {
+        cart = document.createElement('div');
+        cart.className = 'cart';
+        cart.innerHTML = `
+          <h2>🛒 Cart</h2>
+          <ul id="cart-items"></ul>
+          <div class="total" id="total">Total: EGP 0</div>
+          <button class="buy-button" onclick="buyEverything()">Buy Everything</button>
+          <div class="warning" id="warning"></div>
+        `;
+        document.querySelector('.container').appendChild(cart);
+      }
+
+      const list = document.getElementById('cart-items');
+      const total = document.getElementById('total');
+      list.innerHTML = '';
+      totalPrice = 0;
+
+      cartItems.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `${item.name} - EGP ${item.price} <button class="delete-btn" onclick="removeFromCart(${index})">Delete</button>`;
+        list.appendChild(li);
+        totalPrice += item.price;
+      });
+
+      total.textContent = `Total: EGP ${totalPrice}`;
+    }
+
+    function buyEverything() {
+      if (cartItems.length === 0) {
+        alert("🛒 Your cart is empty!");
+        return;
+      }
+      document.getElementById('item-name').textContent = "all items";
+      document.getElementById('item-price').textContent = `EGP ${totalPrice}`;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    document.querySelectorAll('.buy-now').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const product = btn.parentElement;
+        const name = product.querySelector('h3').textContent;
+        const price = parseInt(product.querySelector('.price').textContent.replace('EGP ', ''));
+
+        document.getElementById('item-name').textContent = name;
+        document.getElementById('item-price').textContent = `EGP ${price}`;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+  </script>
+
+  <button class="floating-cart-btn" onclick="scrollToCart()">🛒 View Cart</button>
+</body>
+</html>
