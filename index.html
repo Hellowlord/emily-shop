@@ -1,4 +1,24 @@
-<!DOCTYPE html>
+<!DOCTYPE html><div id="payment-form" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border: 2px solid #ccc; border-radius: 10px; box-shadow: 0 0 15px rgba(0,0,0,0.3); z-index: 2000;">
+  <h2 style="text-align:center;">Credit Card Payment</h2>
+  <label>Card Number:</label><br>
+  <input type="text" placeholder="1234 5678 9012 3456" style="width: 100%; padding: 8px;"><br><br>
+  <label>Expiration Date:</label><br>
+  <input type="text" placeholder="MM/YY" style="width: 100%; padding: 8px;"><br><br>
+  <label>CVV:</label><br>
+  <input type="text" placeholder="123" style="width: 100%; padding: 8px;"><br><br>
+  <label>PIN:</label><br>
+  <input type="password" placeholder="****" style="width: 100%; padding: 8px;"><br><br>
+  <button onclick="document.getElementById('payment-form').style.display='none'" style="margin-top: 10px; padding: 10px 15px; background: green; color: white; border: none; border-radius: 5px;">Submit Payment</button>
+</div>
+
+<script>
+  document.querySelectorAll('.buy-now').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.getElementById('payment-form').style.display = 'block';
+    });
+  });
+</script>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -207,28 +227,4 @@
   <script>
     const cartItems = [];
     const maxItems = 20;
-    let totalPrice = 0;
-
-    function addToCart(name, price) {
-      let warningEl = document.getElemen
-<div id="payment-form" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border: 2px solid #ccc; border-radius: 10px; box-shadow: 0 0 15px rgba(0,0,0,0.3); z-index: 2000;">
-  <h2 style="text-align:center;">Credit Card Payment</h2>
-  <label>Card Number:</label><br>
-  <input type="text" placeholder="1234 5678 9012 3456" style="width: 100%; padding: 8px;"><br><br>
-  <label>Expiration Date:</label><br>
-  <input type="text" placeholder="MM/YY" style="width: 100%; padding: 8px;"><br><br>
-  <label>CVV:</label><br>
-  <input type="text" placeholder="123" style="width: 100%; padding: 8px;"><br><br>
-  <label>PIN:</label><br>
-  <input type="password" placeholder="****" style="width: 100%; padding: 8px;"><br><br>
-  <button onclick="document.getElementById('payment-form').style.display='none'" style="margin-top: 10px; padding: 10px 15px; background: green; color: white; border: none; border-radius: 5px;">Submit Payment</button>
-</div>
-
-<script>
-  document.querySelectorAll('.buy-now').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.getElementById('payment-form').style.display = 'block';
-    });
-  });
-</script>
-
+    let
