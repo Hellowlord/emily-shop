@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Emily Shop</title>
   <style>
     body {
@@ -48,7 +48,6 @@
 <body>
 
   <h1>Emily Shop</h1>
-
   <p style="text-align: center; font-weight: bold;">📍 Only in Cairo</p>
 
   <div class="item">
@@ -126,9 +125,10 @@
   </div>
 
   <p style="text-align: center; margin-top: 20px;">
-    📞 Service Number: <strong>+201505619614</strong><br>
-    📍 Only in Cairo
+    📞 Service Number: <strong>+201505619614</strong>
   </p>
+
+  <p style="text-align: center; margin-top: 10px; font-weight: bold;">📍 Only in Cairo</p>
 
   <script>
     const cartItems = [];
@@ -153,8 +153,14 @@
       const cartText = cartItems.map(i => `- ${i.product}: ${i.price} EGP`).join('\n');
       const total = cartItems.reduce((sum, i) => sum + i.price, 0);
       const fullCart = `Items:\n${cartText}\nTotal: ${total} EGP\nPayment: Cash`;
-
       document.getElementById('cartDetails').value = fullCart;
+
+      const receiptText = `Receipt\n\nName: ${name}\nAddress: ${street}, ${city}, ${postal}\nPhone: ${phone}\n\n${fullCart}\n\nDate: ${new Date().toLocaleString()}`;
+      const blob = new Blob([receiptText], { type: 'text/plain' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'receipt.txt';
+      link.click();
 
       document.getElementById('confirmation').innerText = '✅ Your order was submitted!';
       return true;
