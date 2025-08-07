@@ -1,185 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Emily Shop</title>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #fefefe;
+      font-family: Arial, sans-serif;
+      background-color: #f3f3f3;
       margin: 0;
-      padding: 0;
-      color: #444;
-    }
-
-    header {
-      background-color: #ffe6f0;
-      color: #d63384;
       padding: 20px;
+    }
+    h1 {
       text-align: center;
-      font-size: 32px;
-      font-weight: bold;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
-
-    .container {
-      max-width: 1000px;
-      margin: auto;
-      padding: 30px;
-    }
-
-    .product-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-    }
-
-    .product {
-      background: #fff0f5;
-      padding: 20px;
-      border-radius: 20px;
-      width: 280px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      text-align: center;
-      transition: transform 0.3s ease;
-    }
-
-    .product:hover {
-      transform: scale(1.02);
-    }
-
-    .product h3 {
-      margin-top: 0;
-    }
-
-    .product img {
-      width: 100%;
-      height: auto;
-      margin-bottom: 10px;
+    .item {
+      background-color: white;
+      padding: 15px;
+      margin: 15px auto;
+      width: 90%;
+      max-width: 400px;
       border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-
-    .price {
-      font-size: 20px;
-      color: #28a745;
-      margin: 10px 0;
-    }
-
-    .buy-button {
-      background: #ff66b2;
-      color: white;
-      border: none;
+    button, .buy-button {
       padding: 10px 15px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 16px;
-      margin: 5px;
-      transition: background 0.3s ease;
-    }
-
-    .buy-button:hover {
-      background: #cc3399;
-    }
-
-    .cart {
-      margin-top: 40px;
-      padding: 20px;
-      background: #fff0f5;
-      border-radius: 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    }
-
-    .cart h2 {
-      margin-top: 0;
-    }
-
-    .cart ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .cart li {
-      padding: 8px 0;
-      border-bottom: 1px solid #f3c6d3;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .cart .delete-btn {
-      background: #ff4d4d;
+      margin-top: 10px;
+      background-color: #4CAF50;
       color: white;
       border: none;
-      padding: 4px 10px;
-      border-radius: 8px;
       cursor: pointer;
+      border-radius: 5px;
     }
-
-    .total {
-      font-weight: bold;
-      margin-top: 15px;
-      font-size: 18px;
-    }
-
-    .address-section {
-      margin-top: 40px;
-      padding: 20px;
-      background: #fff0f5;
-      border-radius: 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      display: none;
-    }
-
     .address-section input {
       width: 100%;
-      padding: 12px;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 16px;
+      padding: 8px;
+      margin: 5px 0;
     }
-
     .confirmation {
+      text-align: center;
+      margin-top: 20px;
       color: green;
       font-weight: bold;
-      margin-top: 15px;
     }
   </style>
+</head>
+<body>
+
+  <h1>Emily Shop</h1>
+
+  <div class="item">
+    <h2>Smart Dog</h2>
+    <p>2500 EGP</p>
+    <button onclick="addToCart('Smart Dog', 2500)">Buy Now</button>
+  </div>
+
+  <div class="item">
+    <h2>Cruzer Force</h2>
+    <p>2000 EGP</p>
+    <button onclick="addToCart('Cruzer Force', 2000)">Buy Now</button>
+  </div>
+
+  <div class="address-section">
+    <h2>Shipping Address</h2>
+    <form action="https://formspree.io/f/xzzvkdjp" method="POST" onsubmit="return validateAndAttachCart()">
+      <input type="text" name="Full Name" id="fullName" placeholder="Full Name" required>
+      <input type="text" name="Street Address" id="streetAddress" placeholder="Street Address" required>
+      <input type="text" name="City" id="city" placeholder="City" required>
+      <input type="text" name="Postal Code" id="postalCode" placeholder="Postal Code" required>
+      <input type="text" name="Phone Number" id="phone" placeholder="Phone Number" required>
+      <input type="hidden" name="Cart Details" id="cartDetails">
+      <p><strong>Note:</strong> Only cash payment is accepted.</p>
+      <button type="submit" class="buy-button">Buy Now</button>
+    </form>
+    <div id="confirmation" class="confirmation"></div>
+  </div>
+
   <script>
     const cartItems = [];
 
     function addToCart(product, price) {
       cartItems.push({ product, price });
-      updateCart();
+      alert(`${product} has been added to your cart.`);
     }
 
-    function removeFromCart(index) {
-      cartItems.splice(index, 1);
-      updateCart();
-    }
-
-    function updateCart() {
-      const cartList = document.getElementById('cart-items');
-      cartList.innerHTML = '';
-      let total = 0;
-      cartItems.forEach((item, index) => {
-        total += item.price;
-        const li = document.createElement('li');
-        li.innerHTML = `${item.product} - EGP ${item.price} <button class="delete-btn" onclick="removeFromCart(${index})">X</button>`;
-        cartList.appendChild(li);
-      });
-      document.getElementById('total').innerText = `Total: EGP ${total}`;
-      document.getElementById('buy-button-cart').style.display = cartItems.length ? 'inline-block' : 'none';
-    }
-
-    function showAddressForm() {
-      const addressSection = document.querySelector('.address-section');
-      addressSection.style.display = 'block';
-      addressSection.scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function confirmPurchase() {
+    function validateAndAttachCart() {
       const name = document.getElementById('fullName').value;
       const street = document.getElementById('streetAddress').value;
       const city = document.getElementById('city').value;
@@ -188,76 +93,19 @@
 
       if (!name || !street || !city || !postal || !phone) {
         alert('Please fill in all address fields.');
-        return;
+        return false;
       }
 
-      const receipt = `Receipt\n-------\nCustomer: ${name}\nAddress: ${street}, ${city}, ${postal}\nPhone: ${phone}\n\nItems:\n` +
-        cartItems.map(i => `- ${i.product}: EGP ${i.price}`).join('\n') +
-        `\n\nTotal: EGP ${cartItems.reduce((sum, i) => sum + i.price, 0)}\nPayment: Cash`;
+      const cartText = cartItems.map(i => `- ${i.product}: ${i.price} EGP`).join('\n');
+      const total = cartItems.reduce((sum, i) => sum + i.price, 0);
+      const fullCart = `Items:\n${cartText}\nTotal: ${total} EGP\nPayment: Cash`;
 
-      const blob = new Blob([receipt], { type: 'text/plain' });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = 'receipt.txt';
-      link.click();
+      document.getElementById('cartDetails').value = fullCart;
 
-      document.getElementById('confirmation').innerText = '✅ Your purchase has been confirmed!';
-    }
-
-    window.onload = function() {
-      updateCart();
+      document.getElementById('confirmation').innerText = '✅ Your order was submitted!';
+      return true;
     }
   </script>
-</head>
-<body>
-  <header>Emily Shop</header>
 
-  <div class="container">
-    <div class="product-list">
-      <div class="product">
-        <h3>Smart Dog</h3>
-        <img src="OIP.webp" alt="Smart Dog">
-        <p class="price">EGP 2500</p>
-        <p>Clever robot dog that obeys your commands.</p>
-        <button class="buy-button" onclick="addToCart('Smart Dog', 2500)">Add to Cart</button>
-      </div>
-
-      <div class="product">
-        <h3>Cruzer Force 64GB USB</h3>
-        <img src="usb.webp" alt="Cruzer Force USB">
-        <p class="price">EGP 2000</p>
-        <p>200 mph 64GB USB</p>
-        <button class="buy-button" onclick="addToCart('Cruzer Force 64GB USB', 2000)">Add to Cart</button>
-      </div>
-
-      <div class="product">
-        <h3>Speed McQueen Car</h3>
-        <img src="R.webp" alt="Speed McQueen Car">
-        <p class="price">EGP 900</p>
-        <p>Fast toy car with movie-accurate detail.</p>
-        <button class="buy-button" onclick="addToCart('Speed McQueen Car', 900)">Add to Cart</button>
-      </div>
-    </div>
-
-    <div class="cart">
-      <h2>🛒 Cart</h2>
-      <ul id="cart-items"></ul>
-      <div class="total" id="total">Total: EGP 0</div>
-      <button id="buy-button-cart" class="buy-button" style="display:none;" onclick="showAddressForm()">Buy Now</button>
-    </div>
-
-    <div class="address-section">
-      <h2>Shipping Address</h2>
-      <input type="text" id="fullName" placeholder="Full Name">
-      <input type="text" id="streetAddress" placeholder="Street Address">
-      <input type="text" id="city" placeholder="City">
-      <input type="text" id="postalCode" placeholder="Postal Code">
-      <input type="text" id="phone" placeholder="Phone Number">
-      <p><strong>Note:</strong> Only cash payment is accepted.</p>
-      <button class="buy-button" onclick="confirmPurchase()">Buy Now</button>
-      <div id="confirmation" class="confirmation"></div>
-    </div>
-  </div>
 </body>
 </html>
-
