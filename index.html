@@ -43,17 +43,13 @@
       color: green;
       font-weight: bold;
     }
-    .note {
-      text-align: center;
-      color: red;
-      font-weight: bold;
-    }
   </style>
 </head>
 <body>
 
   <h1>Emily Shop</h1>
-  <p class="note">🚚 Only in Cairo</p>
+
+  <p style="text-align: center; font-weight: bold; color: #d00;">📍 Only in Cairo</p>
 
   <div class="item">
     <h2>Smart Dog</h2>
@@ -68,21 +64,21 @@
   </div>
 
   <div class="item">
-    <h2>Xshot Gun</h2>
+    <h2>XShot Gun</h2>
     <p>750 EGP</p>
-    <button onclick="addToCart('Xshot Gun', 750)">Buy Now</button>
+    <button onclick="addToCart('XShot Gun', 750)">Buy Now</button>
   </div>
 
   <div class="item">
     <h2>Water Gun</h2>
-    <p>300 EGP</p>
-    <button onclick="addToCart('Water Gun', 300)">Buy Now</button>
+    <p>500 EGP</p>
+    <button onclick="addToCart('Water Gun', 500)">Buy Now</button>
   </div>
 
   <div class="item">
-    <h2>SpeedMcQueen Car</h2>
+    <h2>Speed McQueen Car</h2>
     <p>900 EGP</p>
-    <button onclick="addToCart('SpeedMcQueen Car', 900)">Buy Now</button>
+    <button onclick="addToCart('Speed McQueen Car', 900)">Buy Now</button>
   </div>
 
   <div class="address-section">
@@ -99,6 +95,16 @@
     </form>
     <div id="confirmation" class="confirmation"></div>
   </div>
+
+  <div style="margin-top: 30px; background-color: #fff; padding: 15px; border-radius: 10px; box-shadow: 0 0 5px rgba(0,0,0,0.1);">
+    <h2>Terms and Conditions</h2>
+    <p>All purchases are final. For refunds or issues, please call our service number: <strong>+201505619614</strong></p>
+  </div>
+
+  <p style="text-align: center; margin-top: 20px;">
+    📞 Service Number: <strong>+201505619614</strong><br>
+    📍 Only in Cairo
+  </p>
 
   <script>
     const cartItems = [];
@@ -127,16 +133,7 @@
       document.getElementById('cartDetails').value = fullCart;
 
       document.getElementById('confirmation').innerText = '✅ Your order was submitted!';
-      generateReceipt(fullCart);
       return true;
-    }
-
-    function generateReceipt(content) {
-      const blob = new Blob([content], { type: 'text/plain' });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = 'receipt.txt';
-      link.click();
     }
   </script>
 
