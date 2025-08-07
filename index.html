@@ -43,11 +43,17 @@
       color: green;
       font-weight: bold;
     }
+    .note {
+      text-align: center;
+      color: red;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
 
   <h1>Emily Shop</h1>
+  <p class="note">🚚 Only in Cairo</p>
 
   <div class="item">
     <h2>Smart Dog</h2>
@@ -63,14 +69,14 @@
 
   <div class="item">
     <h2>Xshot Gun</h2>
-    <p>1000 EGP</p>
-    <button onclick="addToCart('Xshot Gun', 1000)">Buy Now</button>
+    <p>750 EGP</p>
+    <button onclick="addToCart('Xshot Gun', 750)">Buy Now</button>
   </div>
 
   <div class="item">
     <h2>Water Gun</h2>
-    <p>750 EGP</p>
-    <button onclick="addToCart('Water Gun', 750)">Buy Now</button>
+    <p>300 EGP</p>
+    <button onclick="addToCart('Water Gun', 300)">Buy Now</button>
   </div>
 
   <div class="item">
@@ -119,19 +125,18 @@
       const fullCart = `Items:\n${cartText}\nTotal: ${total} EGP\nPayment: Cash`;
 
       document.getElementById('cartDetails').value = fullCart;
-      generateReceipt(fullCart);
+
       document.getElementById('confirmation').innerText = '✅ Your order was submitted!';
+      generateReceipt(fullCart);
       return true;
     }
 
-    function generateReceipt(cartContent) {
-      const blob = new Blob([cartContent], { type: 'text/plain' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'receipt.txt';
-      a.click();
-      URL.revokeObjectURL(url);
+    function generateReceipt(content) {
+      const blob = new Blob([content], { type: 'text/plain' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'receipt.txt';
+      link.click();
     }
   </script>
 
