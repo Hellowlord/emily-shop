@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Emily Shop</title>
   <style>
     body {
@@ -21,7 +21,7 @@
       width: 90%;
       max-width: 400px;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
     button, .buy-button {
       padding: 10px 15px;
@@ -59,6 +59,24 @@
     <h2>Cruzer Force</h2>
     <p>2000 EGP</p>
     <button onclick="addToCart('Cruzer Force', 2000)">Buy Now</button>
+  </div>
+
+  <div class="item">
+    <h2>Xshot Gun</h2>
+    <p>1000 EGP</p>
+    <button onclick="addToCart('Xshot Gun', 1000)">Buy Now</button>
+  </div>
+
+  <div class="item">
+    <h2>Water Gun</h2>
+    <p>750 EGP</p>
+    <button onclick="addToCart('Water Gun', 750)">Buy Now</button>
+  </div>
+
+  <div class="item">
+    <h2>SpeedMcQueen Car</h2>
+    <p>900 EGP</p>
+    <button onclick="addToCart('SpeedMcQueen Car', 900)">Buy Now</button>
   </div>
 
   <div class="address-section">
@@ -101,9 +119,19 @@
       const fullCart = `Items:\n${cartText}\nTotal: ${total} EGP\nPayment: Cash`;
 
       document.getElementById('cartDetails').value = fullCart;
-
+      generateReceipt(fullCart);
       document.getElementById('confirmation').innerText = '✅ Your order was submitted!';
       return true;
+    }
+
+    function generateReceipt(cartContent) {
+      const blob = new Blob([cartContent], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'receipt.txt';
+      a.click();
+      URL.revokeObjectURL(url);
     }
   </script>
 
