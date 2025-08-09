@@ -50,59 +50,16 @@
   <h1>Emily Shop</h1>
   <p style="text-align: center; font-weight: bold;">📍 Only in Cairo</p>
 
-  <div class="item">
-    <h2>Smart Dog</h2>
-    <p>2500 EGP</p>
-    <button onclick="addToCart('Smart Dog', 2500)">Buy Now</button>
-  </div>
-
-  <div class="item">
-    <h2>Cruzer Force</h2>
-    <p>2000 EGP</p>
-    <button onclick="addToCart('Cruzer Force', 2000)">Buy Now</button>
-  </div>
-
-  <div class="item">
-    <h2>XShot Gun</h2>
-    <p>750 EGP</p>
-    <button onclick="addToCart('XShot Gun', 750)">Buy Now</button>
-  </div>
-
-  <div class="item">
-    <h2>Water Gun</h2>
-    <p>500 EGP</p>
-    <button onclick="addToCart('Water Gun', 500)">Buy Now</button>
-  </div>
-
-  <div class="item">
-    <h2>Speed McQueen Car</h2>
-    <p>900 EGP</p>
-    <button onclick="addToCart('Speed McQueen Car', 900)">Buy Now</button>
-  </div>
-
-  <div class="item">
-    <h2>Rice Maker</h2>
-    <p>500 EGP</p>
-    <button onclick="addToCart('Rice Maker', 500)">Buy Now</button>
-  </div>
-
-  <div class="item">
-    <h2>Blue Beanbag</h2>
-    <p>150 SAR</p>
-    <button onclick="addToCart('Blue Beanbag', 150)">Buy Now</button>
-  </div>
-
-  <div class="item">
-    <h2>Red Beanbag</h2>
-    <p>150 SAR</p>
-    <button onclick="addToCart('Red Beanbag', 150)">Buy Now</button>
-  </div>
-
-  <div class="item">
-    <h2>Used DeLonghi (SHS Double Pro) Air Fryer</h2>
-    <p>2000 EGP</p>
-    <button onclick="addToCart('Used DeLonghi Air Fryer', 2000)">Buy Now</button>
-  </div>
+  <div class="item"><h2>Smart Dog</h2><p>2500 EGP</p><button onclick="addToCart('Smart Dog', 2500)">Buy Now</button></div>
+  <div class="item"><h2>Cruzer Force</h2><p>2000 EGP</p><button onclick="addToCart('Cruzer Force', 2000)">Buy Now</button></div>
+  <div class="item"><h2>XShot Gun</h2><p>750 EGP</p><button onclick="addToCart('XShot Gun', 750)">Buy Now</button></div>
+  <div class="item"><h2>Water Gun</h2><p>500 EGP</p><button onclick="addToCart('Water Gun', 500)">Buy Now</button></div>
+  <div class="item"><h2>Speed McQueen Car</h2><p>900 EGP</p><button onclick="addToCart('Speed McQueen Car', 900)">Buy Now</button></div>
+  <div class="item"><h2>Rice Maker</h2><p>500 EGP</p><button onclick="addToCart('Rice Maker', 500)">Buy Now</button></div>
+  <div class="item"><h2>Blue Beanbag</h2><p>150 SAR</p><button onclick="addToCart('Blue Beanbag', 150)">Buy Now</button></div>
+  <div class="item"><h2>Red Beanbag</h2><p>150 SAR</p><button onclick="addToCart('Red Beanbag', 150)">Buy Now</button></div>
+  <div class="item"><h2>Used DeLonghi (SHS Double Pro) Air Fryer</h2><p>2000 EGP</p><button onclick="addToCart('Used DeLonghi Air Fryer', 2000)">Buy Now</button></div>
+  <div class="item"><h2>EGEIRA E55 RGB Gaming Headset</h2><p>113.85 SAR</p><button onclick="addToCart('EGEIRA E55 RGB Gaming Headset', 113.85)">Buy Now</button></div>
 
   <div class="address-section">
     <h2>Shipping Address</h2>
@@ -124,10 +81,7 @@
     <p>All purchases are final. For refunds or issues, please call our service number: <strong>+201505619614</strong></p>
   </div>
 
-  <p style="text-align: center; margin-top: 20px;">
-    📞 Service Number: <strong>+201505619614</strong>
-  </p>
-
+  <p style="text-align: center; margin-top: 20px;">📞 Service Number: <strong>+201505619614</strong></p>
   <p style="text-align: center; margin-top: 10px; font-weight: bold;">📍 Only in Cairo</p>
 
   <script>
@@ -150,9 +104,9 @@
         return false;
       }
 
-      const cartText = cartItems.map(i => `- ${i.product}: ${i.price} EGP`).join('\n');
+      const cartText = cartItems.map(i => `- ${i.product}: ${i.price}`).join('\n');
       const total = cartItems.reduce((sum, i) => sum + i.price, 0);
-      const fullCart = `Items:\n${cartText}\nTotal: ${total} EGP\nPayment: Cash`;
+      const fullCart = `Items:\n${cartText}\nTotal: ${total}\nPayment: Cash`;
       document.getElementById('cartDetails').value = fullCart;
 
       const receiptText = `Receipt\n\nName: ${name}\nAddress: ${street}, ${city}, ${postal}\nPhone: ${phone}\n\n${fullCart}\n\nDate: ${new Date().toLocaleString()}`;
