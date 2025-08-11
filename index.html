@@ -14,6 +14,11 @@
     h1 {
       text-align: center;
     }
+    .logo {
+      display: block;
+      margin: 0 auto 10px auto;
+      max-width: 150px;
+    }
     .item {
       background-color: white;
       padding: 15px;
@@ -54,9 +59,13 @@
 </head>
 <body>
 
+  <!-- Logo -->
+  <img src="A_logo_design_for_Emily_Shop_features_an_emblem_on.png" alt="Emily Shop Logo" class="logo">
+
   <h1>Emily Shop</h1>
   <p style="text-align: center; font-weight: bold;">📍 Only in Cairo</p>
 
+  <!-- Products -->
   <div class="item"><h2>Smart Dog</h2><p>2500 EGP</p><button onclick="addToCart('Smart Dog', 2500)">Buy Now</button></div>
   <div class="item"><h2>Cruzer Force</h2><p>2000 EGP</p><button onclick="addToCart('Cruzer Force', 2000)">Buy Now</button></div>
   <div class="item"><h2>XShot Gun</h2><p>750 EGP</p><button onclick="addToCart('XShot Gun', 750)">Buy Now</button></div>
@@ -69,6 +78,7 @@
   <div class="item"><h2>EGEIRA E55 RGB Gaming Headset</h2><p>113.85 SAR</p><button onclick="addToCart('EGEIRA E55 RGB Gaming Headset', 113.85)">Buy Now</button></div>
   <div class="item"><h2>Launchpad MK2</h2><p>10000 EGP</p><button onclick="addToCart('Launchpad MK2', 10000)">Buy Now</button></div>
 
+  <!-- Address Form -->
   <div class="address-section">
     <h2>Shipping Address</h2>
     <form action="https://formspree.io/f/xzzvkdjp" method="POST" onsubmit="return validateAndAttachCart()">
@@ -84,9 +94,11 @@
     <div id="confirmation" class="confirmation"></div>
   </div>
 
+  <!-- Terms and Conditions -->
   <div class="terms">
     <h2>Terms and Conditions</h2>
     <p>All purchases are final. For refunds or issues, please call our service number: <strong>+201505619614</strong>.</p>
+    <p>By using our shop, you agree to our terms and conditions. For inquiries, contact us at <strong>+201505619614</strong> or email <strong>adamsalembusiness136@gmail.com</strong>.</p>
   </div>
 
   <p style="text-align: center; margin-top: 20px;">📞 Service Number: <strong>+201505619614</strong></p>
